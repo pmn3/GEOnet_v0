@@ -1,0 +1,36 @@
+﻿@{ 
+//Layout = null;
+    ViewData["Title"] = "inputgeo";
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Координаты</title>
+</head>
+<body>
+    <div>
+        <h3>Форма ввода координат</h3>
+        <p>Для ввода координат заполните поля:</p>
+        <form method="post">
+            <input type="hidden" value="@ViewBag.Id" name="Id" />
+            <table>
+                <tr>
+                    <td>Имя:</td>
+                    <td><input ="text" name="nameID" /></td>
+                </tr>
+                <tr>
+                    <td>координата X:</td>
+                    <td><input ="text" name="X" /></td>
+                </tr>
+                <tr>
+                    <td>координата Y:</td>
+                    <td><input ="text" name="Y" /></td>
+                </tr>
+                <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

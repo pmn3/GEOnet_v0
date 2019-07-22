@@ -1,0 +1,40 @@
+﻿@model  IEnumerable<GEOnet.Models.geoModel>
+@{
+    ViewData["Title"] = "Index";
+    //ViewData["Title"] = "Home Page";
+    //Layout = null;
+}
+
+@*<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>*@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <body>
+        <h3>Координаты</h3>
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>X</td>
+                <td>Y</td>
+                <td>Time_Date</td>
+               
+            </tr>
+            @foreach(var geomod in Model)
+            {
+             <tr>
+                 <td>@geomod.nameID</td>
+                 <td>@geomod.X</td>
+                 <td>@geomod.Y</td>
+                 <td>@geomod.geoDT</td>
+                
+             </tr>
+            }
+        </table>
+    </body>
+</head>
+</html>
