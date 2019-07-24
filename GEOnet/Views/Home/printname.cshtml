@@ -18,10 +18,12 @@
         <h3>Координаты - printname</h3>
         <table>
             <tr>
-                <td>Name</td>
-                <td>X</td>
-                <td>Y</td>
-                <td>Time_Date</td>
+                <th>Пользователь</th>
+                <th>X</th>
+                <th>Y</th>
+                <th>Устройство</th>
+                <th>Время</th>
+                <th>Дата</th>
             </tr>
             @foreach (var geomod in Model)
             {
@@ -29,6 +31,8 @@
                     <td>@geomod.nameID</td>
                     <td>@geomod.X</td>
                     <td>@geomod.Y</td>
+                    <td>@geomod.geonamedevice</td>
+                    <td>@geomod.geoTM</td>
                     <td>@geomod.geoDT</td>
 
                 </tr>

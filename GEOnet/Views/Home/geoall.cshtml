@@ -1,6 +1,6 @@
-﻿@model IEnumerable<GEOnet.Models.geoUser>
+﻿@model IEnumerable<GEOnet.Models.geoModel>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "geoall";
     //ViewData["Title"] = "Home Page";
     //Layout = null;
 }
@@ -15,24 +15,28 @@
 <html>
 <head>
     <body>
-        <h3>Пользователи</h3>
+        <h3>Координаты</h3>
         <table>
             <tr>
-                <th>Пользователь</th>
+                <th>Name</th>
+                <th>X</th>
+                <th>Y</th>
+                <th>Устройство</th>
                 <th>Время</th>
                 <th>Дата</th>
-                <th>Устройство</th>
-                <th>Координаты</th>
+
             </tr>
             @foreach (var geomod in Model)
             {
-        <tr>
-            <td>@geomod.username</td>
-            <td>@geomod.tm</td>
-            <td>@geomod.dt</td>
-            <td>@geomod.namedevice</td>
-            <td><a href="~/Home/printname?searchName=@geomod.username">Смотреть</a></td>
-        </tr>
+            <tr>
+                <td>@geomod.nameID</td>
+                <td>@geomod.X</td>
+                <td>@geomod.Y</td>
+                <td>@geomod.geonamedevice</td>
+                <td>@geomod.geoTM.</td>
+                <td>@geomod.geoDT</td>
+
+            </tr>
             }
         </table>
     </body>

@@ -11,14 +11,17 @@ namespace GEOnet.Models
         public string nameID { get; set; } //имя пользователя - id
         public double X { get; set; } // координата X
         public double Y { get; set; } // координата Y
-        public string geoDT { get; set; } // дата и время получения координат
+
+        public string geonamedevice { get; set; } //имя устройства
+        public string geoDT { get; set; } // дата получения координат
+        public string geoTM { get; set; } // время получения координат
     }
 
-    public class geoUser
-    {
-        public int ID { get; set; }
-        public string username { get; set; } //имя пользователя
-        public string dt { get; set; } //дата
+    //public class geoUser
+    //{
+    //    public int Id { get; set; }
+    //    public string username { get; set; } //имя пользователя
+    //    public string dt { get; set; } //дата
 
-    }
+    //}
 }

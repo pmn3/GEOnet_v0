@@ -1,0 +1,32 @@
+﻿@{
+    //Layout = null;
+    ViewData["Title"] = "inputuser";
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Пользователи</title>
+</head>
+<body>
+    <div>
+        <h3>Форма создания пользователя</h3>
+        <p>Для создания пользователя:</p>
+        <form method="post">
+            <input type="hidden" value="@ViewBag.Id" name="Id" />
+            <table>
+                <tr>
+                    <td>Имя:</td>
+                    <td><input ="text" name="username" /></td>
+                </tr>
+                <tr>
+                    <td>Устройство:</td>
+                    <td><input ="text" name="namedevice" /></td>
+                </tr>                
+                <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
