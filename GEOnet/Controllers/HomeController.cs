@@ -57,17 +57,45 @@ namespace GEOnet.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public string inputgeo(geoModel geoModel)
-        //{
-        //    db.geoModels.Add(geoModel);
-        //    db.SaveChanges();
-        //    return geoModel.nameID + " координыта занесены в БД";
+        //test JSON--
+        //возвращает в виде JSON
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<geoUser>>> GetgeoUsers()
+        {
+            return await db.geoUsers.ToListAsync();
+        }
 
-        //}
+        [HttpGet("{Id}")]
+        public async Task<ActionResult<geoUser>> GetgeoUser(int Id)
+        {
+            var user = await db.geoUsers.FindAsync(Id);
+            if (user == null)
+            {
+                return NotFound("БД пусто");
+            }
+            return user;
+        }
+
+        //тест создание пользователя в БД с помощью JSON.
+        //Неполучалось принять данные из JSON без [FromBody]
+        [HttpPost]
+        public async Task<ActionResult<geoUser>> PostgeoUser([FromBody]geoUser item)
+        {
+
+            item.tm = localDate.ToString("HH:mm:ss");
+            item.dt = localDate.ToString("dd.MM.yyyy");
+
+            db.geoUsers.Add(item);
+            await db.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetgeoUser), new { id = item.Id }, item);
+        }
+
+        //----
+
         //вводим данные и проверяем существование пользователя
         [HttpPost]
-        public async Task<IActionResult> inputgeo(geoModel geoModel)
+        public async Task<IActionResult> inputgeo([FromBody]geoModel geoModel)
         {
 
             var uname = await db.geoUsers.FirstOrDefaultAsync(s => s.username == geoModel.nameID);
@@ -98,44 +126,31 @@ namespace GEOnet.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> inputuser(geoUser geoUser)
+        public async Task<IActionResult> inputuser([FromBody]geoUser ingeoUser)
         {
 
-            var uname = await db.geoUsers.FirstOrDefaultAsync(s => s.username == geoUser.username);
-            var udevice = await db.geoUsers.FirstOrDefaultAsync(d => d.namedevice == geoUser.namedevice);
+            var uname = await db.geoUsers.FirstOrDefaultAsync(s => s.username == ingeoUser.username);
+            var udevice = await db.geoUsers.FirstOrDefaultAsync(d => d.namedevice == ingeoUser.namedevice);
             if ((uname != null) & (udevice != null))
             {
                 return NotFound("Указанные пользователь и устройство уже существует в БД");
             }
             else if ((uname != null) & (udevice == null))
             {
-                geoUser.tm = localDate.ToString("HH:mm:ss");
-                geoUser.dt = localDate.ToString("dd.MM.yyyy");
-                db.geoUsers.Add(geoUser);
+                ingeoUser.tm = localDate.ToString("HH:mm:ss");
+                ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
+                db.geoUsers.Add(ingeoUser);
                 db.SaveChanges();
                 return Ok("Данные внесены в БД");
             }
             else 
             {
-                geoUser.tm = localDate.ToString("HH:mm:ss");
-                geoUser.dt = localDate.ToString("dd.MM.yyyy");
-                db.geoUsers.Add(geoUser);
+                ingeoUser.tm = localDate.ToString("HH:mm:ss");
+                ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
+                db.geoUsers.Add(ingeoUser);
                 db.SaveChanges();
                 return Ok("Данные внесены в БД");
             }
-
-            //if (uname != null)
-            //{
-            //    return NotFound("Указанный пользователь уже существует в БД");
-            //}
-            //else
-            //{
-            //    geoUser.tm = localDate.ToString("HH:mm:ss");
-            //    geoUser.dt = localDate.ToString("dd.MM.yyyy");
-            //    db.geoUsers.Add(geoUser);
-            //    db.SaveChanges();
-            //    return Ok("Данные внесены в БД");
-            //}
 
         }
 
