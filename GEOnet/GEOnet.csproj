@@ -5,6 +5,16 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="GEOnet\.vs\ProjectSettings.json" />
+    <Content Include="GEOnet\.vs\VSWorkspaceState.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="GEOnet\.vs\GEOnet\v16\.suo" />
+    <None Include="GEOnet\.vs\slnx.sqlite" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
