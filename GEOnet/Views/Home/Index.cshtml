@@ -16,22 +16,22 @@
 <head>
     <body>
         @*<h3>Пользователи</h3>*@
-        <table cellspacing="10">
-            <tr>
-                <th align="center">Пользователь</th>
-                <th align="center">Время</th>
-                <th align="center">Дата</th>
-                <th align="center">Устройство</th>
-                <th align="center">Координаты</th>
+        <table align="center" border="0">
+            <tr align="center">
+                <th align="center" width="20%">Пользователь</th>
+                <th align="center" width="20%">Устройство</th>
+                <th align="center" width="20%">Время</th>
+                <th align="center" width="20%">Дата</th>
+                <th align="center" width="20%">Координаты</th>
             </tr>
             @foreach (var geomod in Model)
             {
-        <tr>
-            <td align="left">@geomod.username</td>
-            <td align="center">@geomod.tm</td>
-            <td align="center">@geomod.dt</td>
-            <td align="left">@geomod.namedevice</td>
-            <td align="center"><a href="~/Home/printname?searchName=@geomod.username">Смотреть</a></td>
+        <tr align="center">
+            <td align="center" width="20%">@geomod.username</td>
+            <td align="center" width="20%">@geomod.namedevice</td>
+            <td align="center" width="20%">@geomod.tm</td>
+            <td align="center" width="20%">@geomod.dt</td>
+            <td align="center" width="20%"><a href="~/Home/printname?searchName=@geomod.username">Смотреть</a></td>
         </tr>
             }
         </table>

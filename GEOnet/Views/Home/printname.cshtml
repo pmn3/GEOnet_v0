@@ -15,25 +15,25 @@
 <html>
 <head>
     <body>
-        <h3>Координаты - printname</h3>
-        <table>
-            <tr>
-                <th>Пользователь</th>
-                <th>X</th>
-                <th>Y</th>
-                <th>Устройство</th>
-                <th>Время</th>
-                <th>Дата</th>
+        <h3>Координаты</h3>
+        <table  align="center" border="0">
+            <tr align="center">
+                <th align="center" width="20%">Пользователь</th>
+                <th align="center" width="20%">X</th>
+                <th align="center" width="20%">Y</th>
+                <th align="center" width="20%">Устройство</th>
+                <th align="center" width="20%">Время</th>
+                <th align="center" width="20%">Дата</th>
             </tr>
             @foreach (var geomod in Model)
             {
-                <tr>
-                    <td>@geomod.nameID</td>
-                    <td>@geomod.X</td>
-                    <td>@geomod.Y</td>
-                    <td>@geomod.geonamedevice</td>
-                    <td>@geomod.geoTM</td>
-                    <td>@geomod.geoDT</td>
+                <tr align="center">
+                    <td align="center" width="20%">@geomod.nameID</td>
+                    <td align="center" width="20%">@geomod.X</td>
+                    <td align="center" width="20%">@geomod.Y</td>
+                    <td align="center" width="20%">@geomod.geonamedevice</td>
+                    <td align="center" width="20%">@geomod.geoTM</td>
+                    <td align="center" width="20%">@geomod.geoDT</td>
 
                 </tr>
             }
