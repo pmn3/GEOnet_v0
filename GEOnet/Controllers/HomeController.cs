@@ -129,30 +129,35 @@ namespace GEOnet.Controllers
         [HttpPost]
         public async Task<IActionResult> inputuser(geoUser ingeoUser)
         {
-
-            var uname = await db.geoUsers.FirstOrDefaultAsync(s => s.username == ingeoUser.username);
-            var udevice = await db.geoUsers.FirstOrDefaultAsync(d => d.namedevice == ingeoUser.namedevice);
-            if ((uname != null) & (udevice != null))
+            if ((ingeoUser.username == null) | (ingeoUser.namedevice == null))
             {
-                return NotFound("Указанные пользователь и устройство уже существует в БД");
+                return Ok("Укажите имя пользователя и название устройства ");
             }
-            else if ((uname != null) & (udevice == null))
+            else
             {
-                ingeoUser.tm = localDate.ToString("HH:mm:ss");
-                ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
-                db.geoUsers.Add(ingeoUser);
-                db.SaveChanges();
-                return Ok("Данные внесены в БД");
+                var uname = await db.geoUsers.FirstOrDefaultAsync(s => s.username == ingeoUser.username);
+                var udevice = await db.geoUsers.FirstOrDefaultAsync(d => d.namedevice == ingeoUser.namedevice);
+                if ((uname != null) & (udevice != null))
+                {
+                    return NotFound("Указанные пользователь и устройство уже существует в БД");
+                }
+                else if ((uname != null) & (udevice == null))
+                {
+                    ingeoUser.tm = localDate.ToString("HH:mm:ss");
+                    ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
+                    db.geoUsers.Add(ingeoUser);
+                    db.SaveChanges();
+                    return Ok("Данные внесены в БД");
+                }
+                else
+                {
+                    ingeoUser.tm = localDate.ToString("HH:mm:ss");
+                    ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
+                    db.geoUsers.Add(ingeoUser);
+                    db.SaveChanges();
+                    return Ok("Данные внесены в БД");
+                }
             }
-            else 
-            {
-                ingeoUser.tm = localDate.ToString("HH:mm:ss");
-                ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
-                db.geoUsers.Add(ingeoUser);
-                db.SaveChanges();
-                return Ok("Данные внесены в БД");
-            }
-
         }
         //-***************************************
         //-**********-JSON-BEGIN********************
