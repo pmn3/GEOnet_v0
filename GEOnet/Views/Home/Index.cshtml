@@ -18,20 +18,20 @@
         @*<h3>Пользователи</h3>*@
         <table cellspacing="10">
             <tr>
-                <th>Пользователь</th>
-                <th>Время</th>
-                <th>Дата</th>
-                <th>Устройство</th>
-                <th>Координаты</th>
+                <th align="center">Пользователь</th>
+                <th align="center">Время</th>
+                <th align="center">Дата</th>
+                <th align="center">Устройство</th>
+                <th align="center">Координаты</th>
             </tr>
             @foreach (var geomod in Model)
             {
         <tr>
-            <td>@geomod.username</td>
-            <th>@geomod.tm</th>
-            <th>@geomod.dt</th>
-            <td>@geomod.namedevice</td>
-            <th><a href="~/Home/printname?searchName=@geomod.username">Смотреть</a></th>
+            <td align="left">@geomod.username</td>
+            <td align="center">@geomod.tm</td>
+            <td align="center">@geomod.dt</td>
+            <td align="left">@geomod.namedevice</td>
+            <td align="center"><a href="~/Home/printname?searchName=@geomod.username">Смотреть</a></td>
         </tr>
             }
         </table>
