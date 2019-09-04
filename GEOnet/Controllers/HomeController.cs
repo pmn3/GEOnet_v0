@@ -125,6 +125,7 @@ namespace GEOnet.Controllers
 
         }
 
+        //создаём пользователя
         [HttpPost]
         public async Task<IActionResult> inputuser(geoUser ingeoUser)
         {

@@ -15,8 +15,8 @@
 <html>
 <head>
     <body>
-        <h3>Пользователи</h3>
-        <table>
+        @*<h3>Пользователи</h3>*@
+        <table cellspacing="10">
             <tr>
                 <th>Пользователь</th>
                 <th>Время</th>
@@ -28,10 +28,10 @@
             {
         <tr>
             <td>@geomod.username</td>
-            <td>@geomod.tm</td>
-            <td>@geomod.dt</td>
+            <th>@geomod.tm</th>
+            <th>@geomod.dt</th>
             <td>@geomod.namedevice</td>
-            <td><a href="~/Home/printname?searchName=@geomod.username">Смотреть</a></td>
+            <th><a href="~/Home/printname?searchName=@geomod.username">Смотреть</a></th>
         </tr>
             }
         </table>
