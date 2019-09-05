@@ -108,7 +108,8 @@ namespace GEOnet.Controllers
             {
                 if (udevice == null)
                 {
-                    return NotFound("Указанного устройства нет в БД");
+                    //return NotFound("Указанного устройства нет в БД");
+                    return View("Views/Shared/DevNoDB.cshtml");
                 }
                 else
                 {
@@ -117,7 +118,8 @@ namespace GEOnet.Controllers
 
                     db.geoModels.Add(ingeoModel);
                     db.SaveChanges();
-                    return Ok("Данные внесены в БД");
+                    //return Ok("Данные внесены в БД");
+                    return View("Views/Shared/adduserOK.cshtml");
 
                 }
 
@@ -131,7 +133,8 @@ namespace GEOnet.Controllers
         {
             if ((ingeoUser.username == null) | (ingeoUser.namedevice == null))
             {
-                return Ok("Укажите имя пользователя и название устройства ");
+                //return Ok("Укажите имя пользователя и название устройства ");
+                return View("Views/Shared/AddUserNO.cshtml");
             }
             else
             {
@@ -139,7 +142,8 @@ namespace GEOnet.Controllers
                 var udevice = await db.geoUsers.FirstOrDefaultAsync(d => d.namedevice == ingeoUser.namedevice);
                 if ((uname != null) & (udevice != null))
                 {
-                    return NotFound("Указанные пользователь и устройство уже существует в БД");
+                    //return NotFound("Указанные пользователь и устройство уже существует в БД");
+                    return View("Views/Shared/UserDev0.cshtml");
                 }
                 else if ((uname != null) & (udevice == null))
                 {
@@ -147,7 +151,8 @@ namespace GEOnet.Controllers
                     ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
                     db.geoUsers.Add(ingeoUser);
                     db.SaveChanges();
-                    return Ok("Данные внесены в БД");
+                    //return Ok("Данные внесены в БД");
+                    return View("Views/Shared/adduserOK.cshtml");
                 }
                 else
                 {
@@ -155,7 +160,8 @@ namespace GEOnet.Controllers
                     ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
                     db.geoUsers.Add(ingeoUser);
                     db.SaveChanges();
-                    return Ok("Данные внесены в БД");
+                    //return Ok("Данные внесены в БД");
+                    return View("Views/Shared/adduserOK.cshtml");
                 }
             }
         }
@@ -169,13 +175,16 @@ namespace GEOnet.Controllers
             var udevice = await db.geoUsers.FirstOrDefaultAsync(d => d.namedevice == ingeoModel.geonamedevice);
             if (uname == null)
             {
-                return NotFound("Указанный пользователь не существует в БД");
+                //return NotFound("Указанный пользователь не существует в БД");
+                return View("Views/Shared/UserDev0.cshtml");
+
             }
             else
             {
                 if (udevice == null)
                 {
-                    return NotFound("Указанного устройства нет в БД");
+                    //return NotFound("Указанного устройства нет в БД");
+                    return View("Views/Shared/DevNoDB.cshtml");
                 }
                 else
                 {
@@ -184,8 +193,8 @@ namespace GEOnet.Controllers
 
                     db.geoModels.Add(ingeoModel);
                     db.SaveChanges();
-                    return Ok("Данные внесены в БД");
-
+                    //return Ok("Данные внесены в БД");
+                    return View("Views/Shared/adduserOK.cshtml");
                 }
 
             }
@@ -200,7 +209,9 @@ namespace GEOnet.Controllers
             var udevice = await db.geoUsers.FirstOrDefaultAsync(d => d.namedevice == ingeoUser.namedevice);
             if ((uname != null) & (udevice != null))
             {
-                return NotFound("Указанные пользователь и устройство уже существует в БД");
+                //return NotFound("Указанные пользователь и устройство уже существует в БД");
+                return View("Views/Shared/UserDev0.cshtml");
+
             }
             else if ((uname != null) & (udevice == null))
             {
@@ -208,7 +219,8 @@ namespace GEOnet.Controllers
                 ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
                 db.geoUsers.Add(ingeoUser);
                 db.SaveChanges();
-                return Ok("Данные внесены в БД");
+                //return Ok("Данные внесены в БД");
+                return View("Views/Shared/adduserOK.cshtml");
             }
             else
             {
@@ -216,7 +228,8 @@ namespace GEOnet.Controllers
                 ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
                 db.geoUsers.Add(ingeoUser);
                 db.SaveChanges();
-                return Ok("Данные внесены в БД");
+                //return Ok("Данные внесены в БД");
+                return View("Views/Shared/adduserOK.cshtml");
             }
 
         }
