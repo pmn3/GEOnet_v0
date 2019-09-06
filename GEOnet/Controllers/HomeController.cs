@@ -191,7 +191,7 @@ namespace GEOnet.Controllers
                 {
                     db.geoUsers.Remove(uname); //удаляем пользоваиеля
                     db.geoModels.Remove(uname0); //удаляем координаты
-                    db.SaveChanges();
+                    db.SaveChanges(); //Сохраняем изменения в БД
 
                 //   db.geoModels.Remove(uname0);
             }
