@@ -1,18 +1,16 @@
 ﻿@{
-    //Layout = null;
-    ViewData["Title"] = "inputuser";
-
+    ViewData["Title"] = "rmuser";
 }
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Пользователи</title>
+    <title>Удалить пользователя</title>
 </head>
 <body>
     <div>
         @*<h3>Форма создания пользователя и устройства.</h3>*@
-        <p>Для создания пользователя укажите его имя и устройство.</p>
+        <p>Для удаления пользователя укажите его имя и устройство.</p>
         <form method="post">
             <input type="hidden" value="@ViewBag.Id" name="Id" />
             <table>
@@ -23,8 +21,8 @@
                 <tr>
                     <td>Устройство:</td>
                     <td><input ="text" name="namedevice" /></td>
-                </tr>                
-                <tr><td><input type="submit" value="Добавить" /> </td><td></td></tr>
+                </tr>
+                <tr><td><input type="submit" value="Удалить" /> </td><td></td></tr>
             </table>
         </form>
     </div>

@@ -56,6 +56,12 @@ namespace GEOnet.Controllers
             ViewBag.Id = id;
             return View();
         }
+        [HttpGet]
+        public IActionResult rmuser(int id)
+        {
+            ViewBag.Id = id;
+            return View();
+        }
 
         //test JSON--
         //возвращает в виде JSON
@@ -166,6 +172,33 @@ namespace GEOnet.Controllers
             }
         }
         //-***************************************
+        //-*********DEL-USER********
+        [HttpPost]
+        public async Task<IActionResult> rmuser(geoUser ingeoUser)
+        {
+            //if ((ingeoUser.username == null) | (ingeoUser.namedevice == null))
+            //{
+            //    //return Ok("Укажите имя пользователя и название устройства ");
+            //    return View("Views/Shared/AddUserNO.cshtml");
+            //}
+            //else
+            //{
+
+             var uname = await db.geoUsers.FirstOrDefaultAsync(s => s.username == ingeoUser.username);
+                //var uname = await db.geoUsers.FindAsync(ingeoUser.username);
+                var uname0 = await db.geoModels.FirstOrDefaultAsync(s => s.nameID == ingeoUser.username);
+                if (uname != null)
+                {
+                    db.geoUsers.Remove(uname); //удаляем пользоваиеля
+                    db.geoModels.Remove(uname0); //удаляем координаты
+                    db.SaveChanges();
+
+                //   db.geoModels.Remove(uname0);
+            }
+            return View("Views/Shared/DellUser.cshtml");
+           // }
+        }
+        //***************************
         //-**********-JSON-BEGIN********************
         [HttpPost]
         public async Task<IActionResult> inputgeoJSON([FromBody]geoModel ingeoModel)
