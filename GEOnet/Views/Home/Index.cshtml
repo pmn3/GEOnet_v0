@@ -31,7 +31,8 @@
             <td align="center" width="20%">@geomod.namedevice</td>
             <td align="center" width="20%">@geomod.tm</td>
             <td align="center" width="20%">@geomod.dt</td>
-            <td align="center" width="20%"><a href="~/Home/printname?searchName=@geomod.username">Смотреть</a></td>
+            @*нужно убрать <td align="center" width="20%"><a href="~/Home/printname?searchName=@geomod.username">Смотреть</a></td>*@
+            <td align="center" width="20%"><a href="~/Home/searchnamedev?searchName=@geomod.username&searchDev=@geomod.namedevice">Смотреть</a></td>
         </tr>
             }
         </table>

@@ -1,9 +1,6 @@
 ﻿@model IEnumerable<GEOnet.Models.geoModel>
 @{
-   ViewData["Title"] = "printname";
-   // ViewData["Title"] = "printname2";
-//ViewData["Title"] = "Home Page";
-//Layout = null;
+    ViewData["Title"] = "searchnamedev";
 }
 
 @*<div class="text-center">
@@ -17,7 +14,7 @@
 <head>
     <body>
         <h3>Координаты</h3>
-        <table  align="center" border="1">
+        <table align="center" border="1">
             <tr align="center">
                 <th align="center" width="20%">Пользователь</th>
                 <th align="center" width="20%">Устройство</th>
@@ -28,15 +25,15 @@
             </tr>
             @foreach (var geomod in Model)
             {
-        <tr align="center">
-            <td align="center" width="20%">@geomod.nameID</td>
-            <td align="center" width="20%">@geomod.geonamedevice</td>
-            <td align="center" width="20%">@geomod.X</td>
-            <td align="center" width="20%">@geomod.Y</td>
-            <td align="center" width="20%">@geomod.geoTM</td>
-            <td align="center" width="20%">@geomod.geoDT</td>
+                <tr align="center">
+                    <td align="center" width="20%">@geomod.nameID</td>
+                    <td align="center" width="20%">@geomod.geonamedevice</td>
+                    <td align="center" width="20%">@geomod.X</td>
+                    <td align="center" width="20%">@geomod.Y</td>
+                    <td align="center" width="20%">@geomod.geoTM</td>
+                    <td align="center" width="20%">@geomod.geoDT</td>
 
-        </tr>
+                </tr>
             }
         </table>
     </body>

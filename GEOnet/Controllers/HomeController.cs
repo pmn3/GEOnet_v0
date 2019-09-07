@@ -29,7 +29,7 @@ namespace GEOnet.Controllers
         {
             return View(db.geoModels.ToList());
         }
-        //поиск по nameID
+        //поиск по nameID не точный. Отключил 08.09.2019
         public async Task<IActionResult> printname(string searchName)
         {
             var name = from n in db.geoModels
@@ -41,6 +41,26 @@ namespace GEOnet.Controllers
 
             return View(await name.ToListAsync());
         }
+
+        //==========
+        //поиск по username и namedevice
+        public async Task<IActionResult> searchnamedev(string searchName, string searchDev)
+        {
+            var name = from n in db.geoModels
+                       select n;
+            if (!String.IsNullOrEmpty(searchName))
+            {
+                name = name.Where(s => s.nameID.Contains(searchName));
+            }
+
+            if (!String.IsNullOrEmpty(searchDev))
+            {
+                name = name.Where(d => d.geonamedevice == searchDev);
+            }
+
+            return View(await name.ToListAsync());
+        }
+        //==========
 
         // ввод пользователя и его координат
         [HttpGet]
