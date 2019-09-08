@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using GEOnet.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace GEOnet.Controllers
 {
     public class HomeController : Controller
@@ -29,6 +30,9 @@ namespace GEOnet.Controllers
         {
             return View(db.geoModels.ToList());
         }
+
+
+
         //поиск по nameID не точный. Отключил 08.09.2019
         public async Task<IActionResult> printname(string searchName)
         {
@@ -61,7 +65,28 @@ namespace GEOnet.Controllers
             return View(await name.ToListAsync());
         }
         //==========
+        //===map=====
+        public async Task<IActionResult> geomap(string Name,string Dev,string Latitude,string Longitude, string GeoTM,string GeoDT)
+        {
+            Latitude = Latitude.Replace(",", ".");
+            Longitude = Longitude.Replace(",", ".");
 
+            ViewData["Name"] = Name;
+            ViewData["Dev"] = Dev;
+            //ViewData["Latitude"] = Latitude.ToString().Replace(", ", ".");
+            //ViewData["Longitude"] = Longitude.ToString().Replace(", ", ".");
+            ViewData["Latitude"] = Latitude;
+            ViewData["Longitude"] = Longitude;
+            ViewData["GeoTM"] = GeoTM;
+            ViewData["GeoDT"] = GeoDT;
+            return View();
+
+
+
+
+            //return View();
+        }
+        //===========
         // ввод пользователя и его координат
         [HttpGet]
         public IActionResult inputgeo(int id)
@@ -242,8 +267,8 @@ namespace GEOnet.Controllers
                 else
                 {
                     ingeoModel.geoTM = localDate.ToString("HH:mm:ss");
-                    ingeoModel.geoDT = localDate.ToString("dd.MM.yyyy");
-
+                    ingeoModel.geoDT = localDate.ToString("dd.MM.yyyy");                    
+                                       
                     db.geoModels.Add(ingeoModel);
                     db.SaveChanges();
                     //return Ok("Данные внесены в БД");

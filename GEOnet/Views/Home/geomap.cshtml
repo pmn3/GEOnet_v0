@@ -1,0 +1,64 @@
+﻿@model IEnumerable<GEOnet.Models.geoModel>
+@{
+    ViewData["Title"] = "geomap";
+
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>OpenLayers Demo</title>
+    <style type="text/css">
+        .basicMap {
+           // width: 700px;
+           width:auto;
+            height: 300px;
+        }
+    </style>
+    <script src="~/js/OpenLayers.js"></script>
+    <script>
+        //var latitude = 37.686456//37.1312583//штрота
+        //var longitude = 55.7667349//55.8407388//долгота
+
+        function init(longitude,latitude) {
+            map = new OpenLayers.Map("basicMap");
+            var mapnik = new OpenLayers.Layer.OSM();
+            var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+            var toProjection = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+            var position = new OpenLayers.LonLat(longitude,latitude).transform(fromProjection, toProjection);
+            var zoom = 15;
+
+            map.addLayer(mapnik);
+            map.setCenter(position, zoom);
+
+
+            var markers = new OpenLayers.Layer.Markers("Markers");
+            map.addLayer(markers);
+            markers.addMarker(new OpenLayers.Marker(position));
+
+            map.setCenter(position, zoom);
+        }
+    </script>
+
+
+    <table align="center" border="0" width="100%">
+        <tr>
+            <td>Пользователь:   @ViewData["Name"]</td>
+        </tr>
+        <tr>
+            <td>Усройство:   @ViewData["Dev"]</td>
+        </tr>
+        <tr>
+            <td>Координаты: широта @ViewData["Longitude"], долгота @ViewData["Latitude"]</td>
+        </tr>
+        <tr>
+            <td>
+                <body onload="init(@ViewData["Longitude"], @ViewData["Latitude"]);">
+                    @*<div id="basicMap" style="width:700px; height:500px" ></div>*@
+                    <div class="basicMap" id="basicMap"></div>
+                </body>
+            </td>
+        </tr>
+    </table>
+</head>
+</html>
