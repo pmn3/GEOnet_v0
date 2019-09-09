@@ -22,6 +22,7 @@
                 <th align="center" width="20%">Долгота</th>
                 <th align="center" width="20%">Время</th>
                 <th align="center" width="20%">Дата</th>
+                <th align="center" width="20%">Карта</th>
             </tr>
             @foreach (var geomod in Model)
             {
@@ -32,7 +33,7 @@
             <td align="center" width="20%">@geomod.Y</td>
             <td align="center" width="20%">@geomod.geoTM</td>
             <td align="center" width="20%">@geomod.geoDT</td>
-            <td align="center" width="20%"><a href="~/Home/geomap?Name=@geomod.nameID&Dev=@geomod.geonamedevice&Latitude=@geomod.X&Longitude=@geomod.Y&GeoTM=@geomod.geoTM&GeoDT=@geomod.geoDT">На карте</a></td>
+            <td align="center" width="20%"><a href="~/Home/geomap?Name=@geomod.nameID&Dev=@geomod.geonamedevice&Latitude=@geomod.X&Longitude=@geomod.Y&GeoTM=@geomod.geoTM&GeoDT=@geomod.geoDT">Показать на карте</a></td>
 
         </tr>
             }
