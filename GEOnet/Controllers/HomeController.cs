@@ -41,7 +41,7 @@ namespace GEOnet.Controllers
                        select n;
             if (!String.IsNullOrEmpty(searchName))
             {
-                name = name.Where(s => s.nameID.Contains(searchName));
+                name = name.Where(s => s.NameUser.Contains(searchName));
             }
 
             return View(await name.ToListAsync());
@@ -55,7 +55,7 @@ namespace GEOnet.Controllers
                        select n;
             if (!String.IsNullOrEmpty(searchName))
             {
-                name = name.Where(s => s.nameID.Contains(searchName));
+                name = name.Where(s => s.NameUser.Contains(searchName));
             }
 
             if (!String.IsNullOrEmpty(searchDev))
@@ -89,7 +89,7 @@ namespace GEOnet.Controllers
                        select n;
             if (!String.IsNullOrEmpty(Name))
             {
-                name = name.Where(s => s.nameID.Contains(Name));
+                name = name.Where(s => s.NameUser.Contains(Name));
             }
 
             if (!String.IsNullOrEmpty(Dev))
@@ -100,17 +100,14 @@ namespace GEOnet.Controllers
             string location = "";
             foreach (var gm in name)
             {
-                location = location + "[" + gm.X.ToString().Replace(',', '.') + "," + gm.Y.ToString().Replace(',', '.') + "],";
+                location = location + "[" + gm.LatitudeX.ToString().Replace(',', '.') + "," + gm.LongitudeY.ToString().Replace(',', '.') + "],";
             }
             string resultlocation = "[" + location + "]";
-            //string namejson = JsonConvert.SerializeObject(name);
-            //ViewData["namejson"] = namejson;
 
             ViewData["Name"] = Name;
             ViewData["Dev"] = Dev;
             ViewData["Resultlocation"] = resultlocation;
 
-            //return View(await name.ToListAsync());
             return View();
         }
         //===========
@@ -176,7 +173,7 @@ namespace GEOnet.Controllers
         public async Task<IActionResult> inputgeo(geoModel ingeoModel)
         {
 
-            var uname = await db.geoUsers.FirstOrDefaultAsync(s => s.username == ingeoModel.nameID);
+            var uname = await db.geoUsers.FirstOrDefaultAsync(s => s.username == ingeoModel.NameUser);
             var udevice = await db.geoUsers.FirstOrDefaultAsync(d => d.namedevice == ingeoModel.geonamedevice);
             if (uname == null)
             {
@@ -186,7 +183,6 @@ namespace GEOnet.Controllers
             {
                 if (udevice == null)
                 {
-                    //return NotFound("Указанного устройства нет в БД");
                     return View("Views/Shared/DevNoDB.cshtml");
                 }
                 else
@@ -196,7 +192,6 @@ namespace GEOnet.Controllers
 
                     db.geoModels.Add(ingeoModel);
                     db.SaveChanges();
-                    //return Ok("Данные внесены в БД");
                     return View("Views/Shared/adduserOK.cshtml");
 
                 }
@@ -211,7 +206,6 @@ namespace GEOnet.Controllers
         {
             if ((ingeoUser.username == null) | (ingeoUser.namedevice == null))
             {
-                //return Ok("Укажите имя пользователя и название устройства ");
                 return View("Views/Shared/AddUserNO.cshtml");
             }
             else
@@ -220,7 +214,6 @@ namespace GEOnet.Controllers
                 var udevice = await db.geoUsers.FirstOrDefaultAsync(d => d.namedevice == ingeoUser.namedevice);
                 if ((uname != null) & (udevice != null))
                 {
-                    //return NotFound("Указанные пользователь и устройство уже существует в БД");
                     return View("Views/Shared/UserDev0.cshtml");
                 }
                 else if ((uname != null) & (udevice == null))
@@ -229,7 +222,6 @@ namespace GEOnet.Controllers
                     ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
                     db.geoUsers.Add(ingeoUser);
                     db.SaveChanges();
-                    //return Ok("Данные внесены в БД");
                     return View("Views/Shared/adduserOK.cshtml");
                 }
                 else
@@ -238,13 +230,12 @@ namespace GEOnet.Controllers
                     ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
                     db.geoUsers.Add(ingeoUser);
                     db.SaveChanges();
-                    //return Ok("Данные внесены в БД");
                     return View("Views/Shared/adduserOK.cshtml");
                 }
             }
         }
         //-***************************************
-        //-*********DEL-USER********
+        //-*********Удаление пользователя********
         [HttpPost]
         public async Task<IActionResult> rmuser(geoUser ingeoUser)
         {
@@ -257,8 +248,7 @@ namespace GEOnet.Controllers
             //{
 
              var uname = await db.geoUsers.FirstOrDefaultAsync(s => s.username == ingeoUser.username);
-                //var uname = await db.geoUsers.FindAsync(ingeoUser.username);
-                var uname0 = await db.geoModels.FirstOrDefaultAsync(s => s.nameID == ingeoUser.username);
+                var uname0 = await db.geoModels.FirstOrDefaultAsync(s => s.NameUser == ingeoUser.username);
                 if (uname != null)
                 {
                     db.geoUsers.Remove(uname); //удаляем пользоваиеля
@@ -268,80 +258,65 @@ namespace GEOnet.Controllers
                 }
                     db.SaveChanges(); //Сохраняем изменения в БД
 
-                //   db.geoModels.Remove(uname0);
             }
             return View("Views/Shared/DellUser.cshtml");
            // }
         }
-        //***************************
-        //-**********-JSON-BEGIN********************
+
+        //-**********-Получение координат в формате JSON ********************
         [HttpPost]
         public async Task<IActionResult> inputgeoJSON([FromBody]geoModel ingeoModel)
         {
-
-            var uname = await db.geoUsers.FirstOrDefaultAsync(s => s.username == ingeoModel.nameID);
-            var udevice = await db.geoUsers.FirstOrDefaultAsync(d => d.namedevice == ingeoModel.geonamedevice);
-            if (uname == null)
-            {
-                //return NotFound("Указанный пользователь не существует в БД");
-                return View("Views/Shared/UserDev0.cshtml");
-
-            }
-            else
-            {
-                if (udevice == null)
-                {
-                    //return NotFound("Указанного устройства нет в БД");
-                    return View("Views/Shared/DevNoDB.cshtml");
-                }
-                else
-                {
-                    ingeoModel.geoTM = localDate.ToString("HH:mm:ss");
-                    ingeoModel.geoDT = localDate.ToString("dd.MM.yyyy");                    
-                                       
-                    db.geoModels.Add(ingeoModel);
-                    db.SaveChanges();
-                    //return Ok("Данные внесены в БД");
-                    return View("Views/Shared/adduserOK.cshtml");
-                }
-
-            }
-
+        var uname = await db.geoUsers.FirstOrDefaultAsync(s => s.username == ingeoModel.NameUser);
+        var udevice = await db.geoUsers.FirstOrDefaultAsync(d => d.namedevice == ingeoModel.geonamedevice);
+        if (uname == null)
+        {
+        return View("Views/Shared/UserDev0.cshtml");
+        }
+        else
+        {
+        if (udevice == null)
+        {
+        return View("Views/Shared/DevNoDB.cshtml");
+        }
+        else
+        {
+        ingeoModel.geoTM = localDate.ToString("HH:mm:ss");
+        ingeoModel.geoDT = localDate.ToString("dd.MM.yyyy");                                                           
+        db.geoModels.Add(ingeoModel);
+        db.SaveChanges();
+        return View("Views/Shared/adduserOK.cshtml");
+        }
+        }
         }
 
+        //Создание пользователя с использованием JSON
         [HttpPost]
         public async Task<IActionResult> inputuserJSON([FromBody]geoUser ingeoUser)
         {
-
-            var uname = await db.geoUsers.FirstOrDefaultAsync(s => s.username == ingeoUser.username);
-            var udevice = await db.geoUsers.FirstOrDefaultAsync(d => d.namedevice == ingeoUser.namedevice);
-            if ((uname != null) & (udevice != null))
-            {
-                //return NotFound("Указанные пользователь и устройство уже существует в БД");
-                return View("Views/Shared/UserDev0.cshtml");
-
-            }
-            else if ((uname != null) & (udevice == null))
-            {
-                ingeoUser.tm = localDate.ToString("HH:mm:ss");
-                ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
-                db.geoUsers.Add(ingeoUser);
-                db.SaveChanges();
-                //return Ok("Данные внесены в БД");
-                return View("Views/Shared/adduserOK.cshtml");
-            }
-            else
-            {
-                ingeoUser.tm = localDate.ToString("HH:mm:ss");
-                ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
-                db.geoUsers.Add(ingeoUser);
-                db.SaveChanges();
-                //return Ok("Данные внесены в БД");
-                return View("Views/Shared/adduserOK.cshtml");
-            }
-
+        var uname = await db.geoUsers.FirstOrDefaultAsync(s => s.username == ingeoUser.username);
+        var udevice = await db.geoUsers.FirstOrDefaultAsync(d => d.namedevice == ingeoUser.namedevice);
+        if ((uname != null) & (udevice != null))
+        {
+        return View("Views/Shared/UserDev0.cshtml");
         }
-        //-**********-JSON-END-********************
+        else if ((uname != null) & (udevice == null))
+        {
+        ingeoUser.tm = localDate.ToString("HH:mm:ss");
+        ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
+        db.geoUsers.Add(ingeoUser);
+        db.SaveChanges();
+        return View("Views/Shared/adduserOK.cshtml");
+        }
+        else
+        {
+        ingeoUser.tm = localDate.ToString("HH:mm:ss");
+        ingeoUser.dt = localDate.ToString("dd.MM.yyyy");
+        db.geoUsers.Add(ingeoUser);
+        db.SaveChanges();
+        return View("Views/Shared/adduserOK.cshtml");
+        }
+        }
     }
 
 }

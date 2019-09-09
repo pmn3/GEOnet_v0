@@ -33,9 +33,9 @@ namespace GEOnet
                 context.geoModels.AddRange(
                     new geoModel
                     {
-                        nameID = "test00",
-                        X = 00.00,
-                        Y = 00.00,
+                        NameUser = "test00",
+                        LatitudeX = 00.00,
+                        LongitudeY = 00.00,
                         geonamedevice = "device00",
                         geoTM = localDate.ToString("HH:mm:ss"),
                         geoDT = localDate.ToString("dd.MM.yyyy")

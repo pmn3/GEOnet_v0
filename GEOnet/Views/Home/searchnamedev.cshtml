@@ -3,11 +3,6 @@
     ViewData["Title"] = "searchnamedev";
 }
 
-@*<div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    </div>*@
-
 <!DOCTYPE html>
 
 <html>
@@ -27,13 +22,13 @@
             @foreach (var geomod in Model)
             {
         <tr align="center">
-            <td align="center" width="20%">@geomod.nameID</td>
+            <td align="center" width="20%">@geomod.NameUser</td>
             <td align="center" width="20%">@geomod.geonamedevice</td>
-            <td align="center" width="20%">@geomod.X</td>
-            <td align="center" width="20%">@geomod.Y</td>
+            <td align="center" width="20%">@geomod.LatitudeX</td>
+            <td align="center" width="20%">@geomod.LongitudeY</td>
             <td align="center" width="20%">@geomod.geoTM</td>
             <td align="center" width="20%">@geomod.geoDT</td>
-            <td align="center" width="20%"><a href="~/Home/geomap?Name=@geomod.nameID&Dev=@geomod.geonamedevice&Latitude=@geomod.X&Longitude=@geomod.Y&GeoTM=@geomod.geoTM&GeoDT=@geomod.geoDT">Показать на карте</a></td>
+            <td align="center" width="20%"><a href="~/Home/geomap?Name=@geomod.NameUser&Dev=@geomod.geonamedevice&Latitude=@geomod.LatitudeX&Longitude=@geomod.LongitudeY&GeoTM=@geomod.geoTM&GeoDT=@geomod.geoDT">Показать на карте</a></td>
 
         </tr>
             }

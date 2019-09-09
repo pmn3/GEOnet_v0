@@ -21,13 +21,13 @@
     <script src="~/js/leaflet/leaflet.js"></script>
     <script>
         function initmap(latitude,longitude,geodt,geotm) {
-            var map = L.map('map').setView([longitude, latitude], 15);
+            var map = L.map('map').setView([latitude, longitude], 15);
             L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                attribution: '&copy; <a rel="nofollow" href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
 
             //L.marker([longitude, latitude]).addTo(map).bindPopup("longitude: " + longitude + "<br /> latitude: " + latitude + "<br /> Дата: " + geodt + "<br /> Время: " + geotm).openPopup();
-            L.marker([longitude, latitude]).addTo(map).bindPopup("longitude: " + longitude + "<br /> latitude: " + latitude).openPopup();
+            L.marker([latitude, longitude]).addTo(map).bindPopup("Широта: " + latitude + "<br /> Долгота: " + longitude).openPopup();
             
         }
 
@@ -42,14 +42,14 @@
         <td>Усройство:   @ViewData["Dev"]</td>
     </tr>
     <tr>
-        <td>Координаты: широта @ViewData["Longitude"], долгота @ViewData["Latitude"]</td>       
+        <td>Координаты: широта @ViewData["Latitude"], долгота @ViewData["Longitude"]</td>       
     </tr>
     <tr>
         <td>Дата: @ViewData["GeoDT"], Время: @ViewData["GeoTM"]</td>
     </tr>
     <tr>
         <td height="60%">
-            <body onload="initmap(@ViewData["Longitude"], @ViewData["Latitude"]);">
+            <body onload="initmap(@ViewData["Latitude"], @ViewData["Longitude"]);">
                 @*<div id="basicMap" style="width:700px; height:500px" ></div>*@
                 <div id="map"></div>
                 
