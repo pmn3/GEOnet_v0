@@ -32,10 +32,10 @@
 
             latitude = locations[0][0];
             longitude = locations[0][1];
-            if (locations == null) {
+            if (locations == "") {
                 latitude = 37.36;
                 longitude = 55.45;
-                //alert("Координаты не заданы");
+                alert("Координаты не заданы");
             }
             var map = L.map('map').setView([latitude,longitude], 7);
             //var map = L.map('map').setView([locations[0][0], locations[0][1]], 10);
@@ -48,8 +48,8 @@
             //var locations = resultlocation;
 
                 for (var i = 0; i < locations.length; i++) {
-                    marker = new L.marker([locations[i][0],locations[i][1]])                                    
-                                    .addTo(map);
+                    marker = new L.marker([locations[i][0], locations[i][1]])
+                        .addTo(map).bindPopup("Широта: " + locations[i][0] + "<br /> Долгота: " + locations[i][1] + "<br /> Дата: " + locations[i][2] + "<br /> Время: " + locations[i][3]).openPopup();
             }
             
         }
@@ -66,12 +66,8 @@
         <td>Усройство:   @ViewData["Dev"]</td>
     </tr>    
     <tr>
-        <td>Дата: @ViewData["GeoDT"], Время: @ViewData["GeoTM"]</td>
-    </tr>
-    <tr>
         <td height="60%">
                 <body onload="initmap(@ViewData["Resultlocation"]);">
-                    @*<div id="basicMap" style="width:700px; height:500px" ></div>*@
                     <div id="map"></div>
 
                 </body>

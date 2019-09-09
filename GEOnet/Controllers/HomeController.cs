@@ -100,7 +100,9 @@ namespace GEOnet.Controllers
             string location = "";
             foreach (var gm in name)
             {
-                location = location + "[" + gm.LatitudeX.ToString().Replace(',', '.') + "," + gm.LongitudeY.ToString().Replace(',', '.') + "],";
+                //location = location + "[" + gm.LatitudeX.ToString().Replace(',', '.') + "," + gm.LongitudeY.ToString().Replace(',', '.') + "," + gm.geoDT + "," + gm.geoTM +"],";
+                //location = location + "[" + gm.LatitudeX.ToString().Replace(',', '.') + "," + gm.LongitudeY.ToString().Replace(',', '.') + "," + "gm.geoDT" + "," + "gm.geoTM" + "],";
+                location = location + "[" + gm.LatitudeX.ToString().Replace(',', '.') + "," + gm.LongitudeY.ToString().Replace(',', '.') +"],";
             }
             string resultlocation = "[" + location + "]";
 
