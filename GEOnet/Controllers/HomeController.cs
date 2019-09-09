@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using GEOnet.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using GeoJSON;
 
 namespace GEOnet.Controllers
 {
@@ -96,13 +97,13 @@ namespace GEOnet.Controllers
                 name = name.Where(d => d.geonamedevice == Dev);
             }
 
-            string location="";
+            string location = "";
             foreach (var gm in name)
             {
-                location = location + "[" + gm.X.ToString().Replace(',','.') + "," + gm.Y.ToString().Replace(',', '.') + "],";
+                location = location + "[" + gm.X.ToString().Replace(',', '.') + "," + gm.Y.ToString().Replace(',', '.') + "],";
             }
             string resultlocation = "[" + location + "]";
-            //string  namejson =  JsonConvert.SerializeObject(name);
+            //string namejson = JsonConvert.SerializeObject(name);
             //ViewData["namejson"] = namejson;
 
             ViewData["Name"] = Name;
@@ -261,7 +262,10 @@ namespace GEOnet.Controllers
                 if (uname != null)
                 {
                     db.geoUsers.Remove(uname); //удаляем пользоваиеля
+                if (uname0 != null)
+                {
                     db.geoModels.Remove(uname0); //удаляем координаты
+                }
                     db.SaveChanges(); //Сохраняем изменения в БД
 
                 //   db.geoModels.Remove(uname0);

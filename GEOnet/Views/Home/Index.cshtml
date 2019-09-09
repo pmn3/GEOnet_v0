@@ -23,6 +23,8 @@
                 <th align="center" width="20%">Время</th>
                 <th align="center" width="20%">Дата</th>
                 <th align="center" width="20%">Координаты</th>
+                <th align="center" width="20%">Карта</th>
+
             </tr>
             @foreach (var geomod in Model)
             {
@@ -33,7 +35,7 @@
             <td align="center" width="20%">@geomod.dt</td>
             @*нужно убрать <td align="center" width="20%"><a href="~/Home/printname?searchName=@geomod.username">Смотреть</a></td>*@
             <td align="center" width="20%"><a href="~/Home/searchnamedev?searchName=@geomod.username&searchDev=@geomod.namedevice">Смотреть</a></td>
-            <td align="center" width="20%"><a href="~/Home/geomapall?searchName=@geomod.username&searchDev=@geomod.namedevice">Карта</a></td>
+            <td align="center" width="20%"><a href="~/Home/geomapall?Name=@geomod.username&Dev=@geomod.namedevice">Карта</a></td>
         </tr>
             }
         </table>
