@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GEOnet.Models;
 using Microsoft.EntityFrameworkCore;
-
+using Newtonsoft.Json;
 
 namespace GEOnet.Controllers
 {
@@ -65,26 +65,52 @@ namespace GEOnet.Controllers
             return View(await name.ToListAsync());
         }
         //==========
-        //===map=====
+        //===map показваем одну точку=====
         public async Task<IActionResult> geomap(string Name,string Dev,string Latitude,string Longitude, string GeoTM,string GeoDT)
         {
-            Latitude = Latitude.Replace(",", ".");
+            //преобразуем "," в "."
+            Latitude = Latitude.Replace(",", ".");  
             Longitude = Longitude.Replace(",", ".");
-
+            //передаём координаты в пердставление geomap
             ViewData["Name"] = Name;
             ViewData["Dev"] = Dev;
-            //ViewData["Latitude"] = Latitude.ToString().Replace(", ", ".");
-            //ViewData["Longitude"] = Longitude.ToString().Replace(", ", ".");
             ViewData["Latitude"] = Latitude;
             ViewData["Longitude"] = Longitude;
             ViewData["GeoTM"] = GeoTM;
             ViewData["GeoDT"] = GeoDT;
             return View();
+        }
+        //===========
+        //==Показываем много точек======
+        public async Task<IActionResult> geomapall(string Name, string Dev)
+        {
+            var name = from n in db.geoModels
+                       select n;
+            if (!String.IsNullOrEmpty(Name))
+            {
+                name = name.Where(s => s.nameID.Contains(Name));
+            }
 
+            if (!String.IsNullOrEmpty(Dev))
+            {
+                name = name.Where(d => d.geonamedevice == Dev);
+            }
 
+            string location="";
+            foreach (var gm in name)
+            {
+                location = location + "[" + gm.X.ToString().Replace(',','.') + "," + gm.Y.ToString().Replace(',', '.') + "],";
+            }
+            string resultlocation = "[" + location + "]";
+            //string  namejson =  JsonConvert.SerializeObject(name);
+            //ViewData["namejson"] = namejson;
 
+            ViewData["Name"] = Name;
+            ViewData["Dev"] = Dev;
+            ViewData["Resultlocation"] = resultlocation;
 
-            //return View();
+            //return View(await name.ToListAsync());
+            return View();
         }
         //===========
         // ввод пользователя и его координат

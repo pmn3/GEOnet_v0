@@ -1,0 +1,82 @@
+﻿@model IEnumerable<GEOnet.Models.geoModel>
+@{
+    ViewData["Title"] = "geomapall";
+
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Leaflet</title>
+    <style>
+        #map {
+            /*width: 600px;
+            height: 400px;*/
+            width: auto;
+            height: 400px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="~/js/leaflet/leaflet.css" />
+    <script src="~/js/leaflet/leaflet.js"></script>
+
+    <link rel="stylesheet" href="~/js/leaflet/MarkerCluster.css" />
+        <link rel="stylesheet" href="~/js/leaflet/MarkerCluster.Default.css" />
+        <script src="~/js/leaflet/leaflet.markercluster-src.js"></script>
+
+    
+    <script>
+        function initmap(resultlocation) {
+            var latitude = 122.447886;
+            var longitude = 11.206051;
+            var map = L.map('map').setView([longitude, latitude], 15);
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+               attribution: '&copy; <a rel="nofollow" href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            lc = [
+                [11.8166, 122.0942],
+                [11.9804, 121.9189],
+                [10.7202, 122.5621],
+                [11.3889, 122.6277],
+                [10.5929, 122.6325]
+            ];
+
+            var locations = resultlocation;
+
+                for (var i = 0; i < locations.length; i++) {
+                    marker = new L.marker([locations[i][0],locations[i][1]])                                    
+                                    .addTo(map);
+            }
+            
+        }
+
+/**/</script>
+</head>
+
+
+<table align="center" border="0" width="100%">
+    <tr>
+        <td>Пользователь:   </td>
+    </tr>
+    <tr>
+        <td>Усройство:   @ViewData["Dev"]</td>
+    </tr>
+    <tr>
+        <td>Координаты: широта @ViewData["Longitude"], долгота @ViewData["Latitude"]</td>
+    </tr>
+    <tr>
+        <td>Дата: @ViewData["GeoDT"], Время: @ViewData["GeoTM"]</td>
+    </tr>
+    <tr>
+        <td height="60%">
+                <body onload="initmap(@ViewData["Resultlocation"]);">
+                    @*<div id="basicMap" style="width:700px; height:500px" ></div>*@
+                    <div id="map"></div>
+
+                </body>
+
+            </td>
+    </tr>
+</table>
+</html>
