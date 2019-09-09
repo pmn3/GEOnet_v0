@@ -29,13 +29,15 @@
         function initmap(resultlocation) {
 
             var locations = resultlocation;
-
-            latitude = locations[0][0];
-            longitude = locations[0][1];
-            if (locations == "") {
+          
+            if (locations == []) {
                 latitude = 37.36;
                 longitude = 55.45;
                 alert("Координаты не заданы");
+            }
+            else {
+                latitude = locations[0][0];
+                longitude = locations[0][1];
             }
             var map = L.map('map').setView([latitude,longitude], 7);
             //var map = L.map('map').setView([locations[0][0], locations[0][1]], 10);
