@@ -9,6 +9,16 @@
 <head>
     <body>
         <h3>Координаты</h3>
+        
+        <form asp-controller="Home" asp-action="saerchnamedev" method="get">
+            <p>
+                Дата: <input type="text" name="SearchDate" />
+                <input type="text" name="SearchName" value="l2"/>
+                <input type="text" name="SearchDev" value="ld2"/>
+                <input type="submit" value="Фильтровать" />
+
+            </p>
+        </form>
         <table align="center" border="1">
             <tr align="center">
                 <th align="center" width="15%">Пользователь</th>
@@ -21,16 +31,16 @@
             </tr>
             @foreach (var geomod in Model)
             {
-        <tr align="center">
-            <td align="center" width="15%">@geomod.NameUser</td>
-            <td align="center" width="15%">@geomod.geonamedevice</td>
-            <td align="center" width="15%">@geomod.LatitudeX</td>
-            <td align="center" width="15%">@geomod.LongitudeY</td>
-            <td align="center" width="15%">@geomod.geoTM</td>
-            <td align="center" width="15%">@geomod.geoDT</td>
-            <td align="center" width="20%"><a href="~/Home/geomap?Name=@geomod.NameUser&Dev=@geomod.geonamedevice&Latitude=@geomod.LatitudeX&Longitude=@geomod.LongitudeY&GeoTM=@geomod.geoTM&GeoDT=@geomod.geoDT">Показать на карте</a></td>
+                <tr align="center">
+                    <td align="center" width="15%">@geomod.NameUser</td>
+                    <td align="center" width="15%">@geomod.geonamedevice</td>
+                    <td align="center" width="15%">@geomod.LatitudeX</td>
+                    <td align="center" width="15%">@geomod.LongitudeY</td>
+                    <td align="center" width="15%">@geomod.geoTM</td>
+                    <td align="center" width="15%">@geomod.geoDT</td>
+                    <td align="center" width="20%"><a href="~/Home/geomap?Name=@geomod.NameUser&Dev=@geomod.geonamedevice&Latitude=@geomod.LatitudeX&Longitude=@geomod.LongitudeY&GeoTM=@geomod.geoTM&GeoDT=@geomod.geoDT">Показать на карте</a></td>
 
-        </tr>
+                </tr>
             }
         </table>
     </body>

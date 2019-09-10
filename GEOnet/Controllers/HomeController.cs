@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using GEOnet.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -22,9 +23,20 @@ namespace GEOnet.Controllers
         }
 
         //вывод всего содержимого БД
-        public IActionResult Index()
+        //public IActionResult Index()
+        //{
+        //    return View(db.geoUsers.ToList());
+        //}
+        [HttpGet]
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(db.geoUsers.ToList());
+            var users = from u in db.geoUsers
+                        select u;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(u => u.username.Contains(searchString));
+            }
+            return View(await users.ToListAsync());
         }
 
         public IActionResult geoall()
@@ -49,7 +61,7 @@ namespace GEOnet.Controllers
 
         //==========
         //поиск по username и namedevice
-        public async Task<IActionResult> searchnamedev(string searchName, string searchDev)
+        public async Task<IActionResult> searchnamedev(string searchName, string searchDev, string searchDate)
         {
             var name = from n in db.geoModels
                        select n;
@@ -63,6 +75,10 @@ namespace GEOnet.Controllers
                 name = name.Where(d => d.geonamedevice == searchDev);
             }
 
+            if (!String.IsNullOrEmpty(searchDate))
+            {
+                name = name.Where(dt => dt.geoDT == searchDate);
+            }
             return View(await name.ToListAsync());
         }
         //==========
