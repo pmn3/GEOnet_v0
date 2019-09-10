@@ -9,16 +9,16 @@
 <head>
     <body>
         <h3>Координаты</h3>
-        
         <form asp-controller="Home" asp-action="saerchnamedev" method="get">
             <p>
                 Дата: <input type="text" name="SearchDate" />
-                <input type="text" name="SearchName" value="l2"/>
-                <input type="text" name="SearchDev" value="ld2"/>
+                <input type="hidden" name="SearchName" value=@ViewData["Name"] />
+                <input type="hidden" name="SearchDev" value=@ViewData["Dev"] />
                 <input type="submit" value="Фильтровать" />
 
             </p>
         </form>
+        
         <table align="center" border="1">
             <tr align="center">
                 <th align="center" width="15%">Пользователь</th>

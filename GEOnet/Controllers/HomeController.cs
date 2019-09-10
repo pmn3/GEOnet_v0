@@ -79,6 +79,8 @@ namespace GEOnet.Controllers
             {
                 name = name.Where(dt => dt.geoDT == searchDate);
             }
+            ViewData["Name"] = searchName;
+            ViewData["Dev"] = searchDev;
             return View(await name.ToListAsync());
         }
         //==========
