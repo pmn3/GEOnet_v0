@@ -100,9 +100,9 @@ namespace GEOnet.Controllers
             string location = "";
             foreach (var gm in name)
             {
-                //location = location + "[" + gm.LatitudeX.ToString().Replace(',', '.') + "," + gm.LongitudeY.ToString().Replace(',', '.') + "," + gm.geoDT + "," + gm.geoTM +"],";
-                //location = location + "[" + gm.LatitudeX.ToString().Replace(',', '.') + "," + gm.LongitudeY.ToString().Replace(',', '.') + "," + "gm.geoDT" + "," + "gm.geoTM" + "],";
-                location = location + "[" + gm.LatitudeX.ToString().Replace(',', '.') + "," + gm.LongitudeY.ToString().Replace(',', '.') +"],";
+                //location = location + "[" + gm.LatitudeX.ToString().Replace(',', '.') + "," + gm.LongitudeY.ToString().Replace(',', '.') + "," + gm.geoDT + "," + gm.geoTM +"],";                
+                location = location + "[" + gm.LatitudeX.ToString().Replace(',', '.') + "," + gm.LongitudeY.ToString().Replace(',', '.') + "," + "\""+gm.geoDT+"\"" + "," + "\""+gm.geoTM+"\"" + "],";
+                //location = location + "[" + gm.LatitudeX.ToString().Replace(',', '.') + "," + gm.LongitudeY.ToString().Replace(',', '.') +"],";
             }
             string resultlocation = "[" + location + "]";
 
@@ -158,14 +158,11 @@ namespace GEOnet.Controllers
         [HttpPost]
         public async Task<ActionResult<geoUser>> PostgeoUser([FromBody]geoUser item)
         {
-
-            item.tm = localDate.ToString("HH:mm:ss");
-            item.dt = localDate.ToString("dd.MM.yyyy");
-
-            db.geoUsers.Add(item);
-            await db.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetgeoUser), new { id = item.Id }, item);
+        //item.tm = localDate.ToString("HH:mm:ss");
+        //item.dt = localDate.ToString("dd.MM.yyyy");
+        db.geoUsers.Add(item);
+        await db.SaveChangesAsync();
+        return CreatedAtAction(nameof(GetgeoUser), new { id = item.Id }, item);
         }
 
         //----
@@ -241,25 +238,23 @@ namespace GEOnet.Controllers
         [HttpPost]
         public async Task<IActionResult> rmuser(geoUser ingeoUser)
         {
-            //if ((ingeoUser.username == null) | (ingeoUser.namedevice == null))
-            //{
-            //    //return Ok("Укажите имя пользователя и название устройства ");
-            //    return View("Views/Shared/AddUserNO.cshtml");
-            //}
-            //else
-            //{
-
-             var uname = await db.geoUsers.FirstOrDefaultAsync(s => s.username == ingeoUser.username);
-                var uname0 = await db.geoModels.FirstOrDefaultAsync(s => s.NameUser == ingeoUser.username);
-                if (uname != null)
-                {
-                    db.geoUsers.Remove(uname); //удаляем пользоваиеля
-                if (uname0 != null)
-                {
-                    db.geoModels.Remove(uname0); //удаляем координаты
-                }
-                    db.SaveChanges(); //Сохраняем изменения в БД
-
+        //if ((ingeoUser.username == null) | (ingeoUser.namedevice == null))
+        //{
+        //    //return Ok("Укажите имя пользователя и название устройства ");
+        //    return View("Views/Shared/AddUserNO.cshtml");
+        //}
+        //else
+        //{
+            var uname = await db.geoUsers.FirstOrDefaultAsync(s => s.username == ingeoUser.username);
+            var uname0 = await db.geoModels.FirstOrDefaultAsync(s => s.NameUser == ingeoUser.username);
+            if (uname != null)
+            {
+            db.geoUsers.Remove(uname); //удаляем пользоваиеля
+            if (uname0 != null)
+            {
+            db.geoModels.Remove(uname0); //удаляем координаты
+            }
+            db.SaveChanges(); //Сохраняем изменения в БД
             }
             return View("Views/Shared/DellUser.cshtml");
            // }
@@ -283,8 +278,8 @@ namespace GEOnet.Controllers
         }
         else
         {
-        ingeoModel.geoTM = localDate.ToString("HH:mm:ss");
-        ingeoModel.geoDT = localDate.ToString("dd.MM.yyyy");                                                           
+        //ingeoModel.geoTM = localDate.ToString("HH:mm:ss");
+        //ingeoModel.geoDT = localDate.ToString("dd.MM.yyyy");                                                           
         db.geoModels.Add(ingeoModel);
         db.SaveChanges();
         return View("Views/Shared/adduserOK.cshtml");
