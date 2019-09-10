@@ -11,23 +11,23 @@
         <h3>Координаты</h3>
         <table align="center" border="1">
             <tr align="center">
-                <th align="center" width="20%">Пользователь</th>
-                <th align="center" width="20%">Устройство</th>
-                <th align="center" width="20%">Широта</th>
-                <th align="center" width="20%">Долгота</th>
-                <th align="center" width="20%">Время</th>
-                <th align="center" width="20%">Дата</th>
-                <th align="center" width="20%">Карта</th>
+                <th align="center" width="15%">Пользователь</th>
+                <th align="center" width="15%">Устройство</th>
+                <th align="center" width="15%">Широта</th>
+                <th align="center" width="15%">Долгота</th>
+                <th align="center" width="15%">Время</th>
+                <th align="center" width="15%">Дата</th>
+                <th align="center" width="15%">Карта</th>
             </tr>
             @foreach (var geomod in Model)
             {
         <tr align="center">
-            <td align="center" width="20%">@geomod.NameUser</td>
-            <td align="center" width="20%">@geomod.geonamedevice</td>
-            <td align="center" width="20%">@geomod.LatitudeX</td>
-            <td align="center" width="20%">@geomod.LongitudeY</td>
-            <td align="center" width="20%">@geomod.geoTM</td>
-            <td align="center" width="20%">@geomod.geoDT</td>
+            <td align="center" width="15%">@geomod.NameUser</td>
+            <td align="center" width="15%">@geomod.geonamedevice</td>
+            <td align="center" width="15%">@geomod.LatitudeX</td>
+            <td align="center" width="15%">@geomod.LongitudeY</td>
+            <td align="center" width="15%">@geomod.geoTM</td>
+            <td align="center" width="15%">@geomod.geoDT</td>
             <td align="center" width="20%"><a href="~/Home/geomap?Name=@geomod.NameUser&Dev=@geomod.geonamedevice&Latitude=@geomod.LatitudeX&Longitude=@geomod.LongitudeY&GeoTM=@geomod.geoTM&GeoDT=@geomod.geoDT">Показать на карте</a></td>
 
         </tr>
