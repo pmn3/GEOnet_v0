@@ -12,6 +12,7 @@
         <form asp-controller="Home" asp-action="saerchnamedev" method="get">
             <p>
                 Дата: <input type="text" name="SearchDate" />
+                Время: <input type="text" name="SearchTime" />
                 <input type="hidden" name="SearchName" value=@ViewData["Name"] />
                 <input type="hidden" name="SearchDev" value=@ViewData["Dev"] />
                 <input type="submit" value="Фильтровать" />

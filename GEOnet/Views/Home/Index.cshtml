@@ -12,7 +12,8 @@
         @*<h3>Пользователи</h3>*@
         <form asp-controller="Home" asp-action="Index" method="get">
             <p>
-                Пользователь: <input type="text" name="SearchString" />
+                Пользователь: <input type="text" name="SearchUser" />
+                Дата: <input type="text" name="SearchDate" />
                 <input type="submit" value="Фильтровать" />
             </p>
         </form>
@@ -20,22 +21,22 @@
             <tr align="center">
                 <th align="center" width="20%">Пользователь</th>
                 <th align="center" width="20%">Устройство</th>
-                <th align="center" width="20%">Время</th>
-                <th align="center" width="20%">Дата</th>
-                <th align="center" width="20%">Координаты</th>
-                <th align="center" width="20%">Карта</th>
+                <th align="center" width="15%">Время</th>
+                <th align="center" width="15%">Дата</th>
+                <th align="center" width="15%">Координаты</th>
+                <th align="center" width="15%">Карта</th>
 
             </tr>
             @foreach (var geomod in Model)
             {
         <tr align="center">
-            <td align="center" width="20%">@geomod.username</td>
-            <td align="center" width="20%">@geomod.namedevice</td>
-            <td align="center" width="20%">@geomod.tm</td>
-            <td align="center" width="20%">@geomod.dt</td>
+            <td align="center" >@geomod.username</td>
+            <td align="center" >@geomod.namedevice</td>
+            <td align="center" >@geomod.tm</td>
+            <td align="center" >@geomod.dt</td>
             @*нужно убрать <td align="center" width="20%"><a href="~/Home/printname?searchName=@geomod.username">Смотреть</a></td>*@
-            <td align="center" width="20%"><a href="~/Home/searchnamedev?searchName=@geomod.username&searchDev=@geomod.namedevice">Смотреть</a></td>
-            <td align="center" width="20%"><a href="~/Home/geomapall?Name=@geomod.username&Dev=@geomod.namedevice">Карта</a></td>
+            <td align="center" ><a href="~/Home/searchnamedev?searchName=@geomod.username&searchDev=@geomod.namedevice">Отобразить координаты</a></td>
+            <td align="center" ><a href="~/Home/geomapall?Name=@geomod.username&Dev=@geomod.namedevice">Отобразить на карте</a></td>
         </tr>
             }
         </table>

@@ -28,14 +28,21 @@ namespace GEOnet.Controllers
         //    return View(db.geoUsers.ToList());
         //}
         [HttpGet]
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchUser, string searchDate)
         {
             var users = from u in db.geoUsers
                         select u;
-            if (!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchUser))
             {
-                users = users.Where(u => u.username.Contains(searchString));
+                users = users.Where(u => u.username.Contains(searchUser));
             }
+
+            if (!String.IsNullOrEmpty(searchDate))
+            {
+                //users = users.Where(dt => dt.dt == searchDate);
+                users = users.Where(dt => dt.dt.Contains(searchDate));
+            }
+
             return View(await users.ToListAsync());
         }
 
@@ -61,7 +68,7 @@ namespace GEOnet.Controllers
 
         //==========
         //поиск по username и namedevice
-        public async Task<IActionResult> searchnamedev(string searchName, string searchDev, string searchDate)
+        public async Task<IActionResult> searchnamedev(string searchName, string searchDev, string searchDate, string searchTime)
         {
             var name = from n in db.geoModels
                        select n;
@@ -77,8 +84,17 @@ namespace GEOnet.Controllers
 
             if (!String.IsNullOrEmpty(searchDate))
             {
-                name = name.Where(dt => dt.geoDT == searchDate);
+                //name = name.Where(dt => dt.geoDT == searchDate);
+                name = name.Where(tm => tm.geoTM.Contains(searchTime));
             }
+
+            if (!String.IsNullOrEmpty(searchTime))
+            {
+                //name = name.Where(tm => tm.geoTM == searchTime);
+                name = name.Where(tm => tm.geoTM.Contains(searchTime));
+            }
+
+
             ViewData["Name"] = searchName;
             ViewData["Dev"] = searchDev;
             return View(await name.ToListAsync());
@@ -185,7 +201,7 @@ namespace GEOnet.Controllers
 
         //----
         // **********************************
-        //вводим данные и проверяем существование пользователя
+        //вводим данные и проверяем существование пользователя (ручной ввод тест)
         [HttpPost]
         public async Task<IActionResult> inputgeo(geoModel ingeoModel)
         {
