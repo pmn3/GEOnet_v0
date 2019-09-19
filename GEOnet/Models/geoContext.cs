@@ -10,7 +10,6 @@ namespace GEOnet.Models
     {
         public DbSet<geoModel> geoModels {get; set;}
         public DbSet<geoUser> geoUsers { get; set; }
-
         public geoContext(DbContextOptions<geoContext> options)
             : base(options)
         {

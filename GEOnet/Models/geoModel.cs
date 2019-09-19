@@ -8,7 +8,7 @@ namespace GEOnet.Models
     public class geoModel
     {
         public int Id { get; set; }
-        public string NameUser { get; set; } //имя пользователя - id
+        public string NameUser { get; set; } //имя пользователя 
         public double LatitudeX { get; set; } // Широта
         public double LongitudeY { get; set; } // Долгота
 

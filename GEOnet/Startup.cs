@@ -36,10 +36,6 @@ namespace GEOnet
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<geoContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            //////string connection = Configuration.GetConnectionString("DefaultConnection");
-            //////services.AddDbContext<geoContext>(options => options.UseSqlServer(connection));
-            //////services.AddMvc(); 
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
         }
 

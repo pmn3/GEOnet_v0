@@ -22,11 +22,7 @@ namespace GEOnet.Controllers
             db = context;
         }
 
-        //вывод всего содержимого БД
-        //public IActionResult Index()
-        //{
-        //    return View(db.geoUsers.ToList());
-        //}
+
         [HttpGet]
         public async Task<IActionResult> Index(string searchUser, string searchDate)
         {
@@ -38,8 +34,7 @@ namespace GEOnet.Controllers
             }
 
             if (!String.IsNullOrEmpty(searchDate))
-            {
-                //users = users.Where(dt => dt.dt == searchDate);
+            {               
                 users = users.Where(dt => dt.dt.Contains(searchDate));
             }
 
@@ -76,25 +71,18 @@ namespace GEOnet.Controllers
             {
                 name = name.Where(s => s.NameUser.Contains(searchName));
             }
-
             if (!String.IsNullOrEmpty(searchDev))
             {
                 name = name.Where(d => d.geonamedevice == searchDev);
             }
-
             if (!String.IsNullOrEmpty(searchDate))
             {
-                //name = name.Where(dt => dt.geoDT == searchDate);
                 name = name.Where(tm => tm.geoTM.Contains(searchTime));
             }
-
             if (!String.IsNullOrEmpty(searchTime))
-            {
-                //name = name.Where(tm => tm.geoTM == searchTime);
+            {                
                 name = name.Where(tm => tm.geoTM.Contains(searchTime));
             }
-
-
             ViewData["Name"] = searchName;
             ViewData["Dev"] = searchDev;
             return View(await name.ToListAsync());
@@ -133,10 +121,8 @@ namespace GEOnet.Controllers
 
             string location = "";
             foreach (var gm in name)
-            {
-                //location = location + "[" + gm.LatitudeX.ToString().Replace(',', '.') + "," + gm.LongitudeY.ToString().Replace(',', '.') + "," + gm.geoDT + "," + gm.geoTM +"],";                
-                location = location + "[" + gm.LatitudeX.ToString().Replace(',', '.') + "," + gm.LongitudeY.ToString().Replace(',', '.') + "," + "\""+gm.geoDT+"\"" + "," + "\""+gm.geoTM+"\"" + "],";
-                //location = location + "[" + gm.LatitudeX.ToString().Replace(',', '.') + "," + gm.LongitudeY.ToString().Replace(',', '.') +"],";
+            {                
+                location = location + "[" + gm.LatitudeX.ToString().Replace(',', '.') + "," + gm.LongitudeY.ToString().Replace(',', '.') + "," + "\""+gm.geoDT+"\"" + "," + "\""+gm.geoTM+"\"" + "],";                
             }
             string resultlocation = "[" + location + "]";
 
@@ -192,8 +178,6 @@ namespace GEOnet.Controllers
         [HttpPost]
         public async Task<ActionResult<geoUser>> PostgeoUser([FromBody]geoUser item)
         {
-        //item.tm = localDate.ToString("HH:mm:ss");
-        //item.dt = localDate.ToString("dd.MM.yyyy");
         db.geoUsers.Add(item);
         await db.SaveChangesAsync();
         return CreatedAtAction(nameof(GetgeoUser), new { id = item.Id }, item);
@@ -311,9 +295,7 @@ namespace GEOnet.Controllers
         return View("Views/Shared/DevNoDB.cshtml");
         }
         else
-        {
-        //ingeoModel.geoTM = localDate.ToString("HH:mm:ss");
-        //ingeoModel.geoDT = localDate.ToString("dd.MM.yyyy");                                                           
+        {                                                          
         db.geoModels.Add(ingeoModel);
         db.SaveChanges();
         return View("Views/Shared/adduserOK.cshtml");

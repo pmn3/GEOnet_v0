@@ -10,9 +10,7 @@ namespace GEOnet.Models
         public int Id { get; set; }
         public string username { get; set; } //имя пользователя
         public string namedevice { get; set; } //имя устройства
-
         public string dt { get; set; } //дата
-
         public string tm { get; set; } //время
     }
 }
